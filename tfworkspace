@@ -14,7 +14,7 @@ Exam - 3 to 4 questions will come
 
 Terraform Workspace commands:
 
-terraform workspace -h
+all comments #terraform workspace -h
 terraform workspace show
 terraform workspace new dev
 terraform workspace new prd
