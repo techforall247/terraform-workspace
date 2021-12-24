@@ -1,0 +1,61 @@
+Terraform in Tamil 35
+*********************
+Terraform Workspaces
+********************
+Workspaces are Collections of Infrastructure / Resources 
+- Example Windows & Ubuntu Workspaces
+
+Each Workspaces have different set of variables 
+Single TF file manage multiple environments
+keeping their configurations in separate directories 
+        terraform.tfstate.d/dev/terraform.tfstate 
+  
+Exam - 3 to 4 questions will come
+
+Terraform Workspace commands:
+
+terraform workspace -h
+terraform workspace show
+terraform workspace new dev
+terraform workspace new prd
+terraform workspace list
+terraform workspace select dev
+
+
+defult   - t3.micro
+dev      - t3.large
+prod     - t3.2Xlarge
+
+Default Workspaces Ec2 create
+
+provider "aws" {
+  region = "us-east-1"
+}
+resource "aws_instance" "web" {
+  ami           = "ami-02e136e904f3da870"
+  instance_type = "t3.micro"
+ }
+
+provider "aws" {
+  region     = "us-west-2"
+}
+
+resource "aws_instance" "myec2" {
+   ami = "ami-02e136e904f3da870"
+   instance_type = lookup(var.instance_type,terraform.workspace)
+}
+
+variable "instance_type" {
+  type = "map"
+
+  default = {
+    default = "t3.micro"
+    dev     = "t3.large"
+    prod     = "t3.2xlarge"
+  }
+}
+
+
+
+
+
